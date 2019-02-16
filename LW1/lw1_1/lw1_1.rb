@@ -1,4 +1,9 @@
-input_file_name, output_file_name, search_string, replace_string = ARGV
+if ARGV.length != 4
+  raise(ArgumentError)
+else
+  input_file_name, output_file_name, search_string, replace_string = ARGV
+end
+
 
 File.open(input_file_name, 'r') do |in_file|
   File.open(output_file_name, 'w+') do |out_file|
