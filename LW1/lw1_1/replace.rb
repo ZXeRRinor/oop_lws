@@ -1,5 +1,4 @@
 begin
-  puts('you have to input next arguments after "ruby replace.rb": <input file> <output file> <search string> <replacement string>')
   if ARGV.length != 4
     raise(ArgumentError, 'Invalid number of arguments.')
   else
@@ -19,6 +18,7 @@ begin
 
 rescue ArgumentError => errMsg
   puts(errMsg)
+  puts('you have to input next arguments after "ruby replace.rb": <input file> <output file> <search string> <replacement string>')
 rescue Errno::ENOENT => errMsg
   puts(errMsg)
 end
