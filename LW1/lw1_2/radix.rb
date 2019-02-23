@@ -18,7 +18,7 @@ end
 
 begin
   if ARGV.length != 3
-    raise(ArgumentError, 'Invalid number of arguments.')
+    raise(ArgumentError, "Invalid number of arguments.")
   else
     source_notation, destination_notation, value = ARGV
   end
