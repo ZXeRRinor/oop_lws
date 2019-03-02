@@ -15,6 +15,17 @@ class QuadraticMatrix
     @matrix = matrix
     @determinant = nil
   end
+  
+  def transpose
+    length = @matrix.length
+    matrix = @matrix.map(&:dup)
+    (0...length).each do |j|
+      (0...length).each do |i|
+        matrix[j][i] = @matrix[i][j]
+      end
+    end
+    QuadraticMatrix.new(matrix)
+  end
 
   def can_calculate_determinant?
     size = get_size
@@ -33,20 +44,20 @@ class QuadraticMatrix
         minor_matrix[j][i] = QuadraticMatrix.new(matrix).calculate_determinant
       end
     end
-    minor_matrix
+    QuadraticMatrix.new(minor_matrix)
   end
 
   def calculate_cofactor_matrix
     length = @matrix.length
     cofactor_matrix = []
-    minor_matrix = calculate_minor_matrix
+    minor_matrix = calculate_minor_matrix.matrix
     (0...length).each do |j|
       cofactor_matrix.push([])
       (0...length).each do |i|
         cofactor_matrix[j][i] = minor_matrix[j][i] * @matrix[j][i] * ((i + j) % 2 == 0 ? 1 : -1)
       end
     end
-    cofactor_matrix
+    QuadraticMatrix.new(cofactor_matrix)
   end
 
   def calculate_determinant
@@ -57,9 +68,21 @@ class QuadraticMatrix
     if self.get_size == [2, 2]
       determinant = @matrix[0][0] * @matrix[1][1] - @matrix[1][0] * @matrix[0][1]
     else
-      calculate_cofactor_matrix.first.each {|elem| determinant += elem}
+      calculate_cofactor_matrix.matrix.first.each {|elem| determinant += elem}
     end
     @determinant = determinant
+  end
+
+  def multiply_by_number(num)
+    #matrix = @matrix.map(&:dup)
+    matrix = @matrix.map do |line|
+      line.map {|elem| elem * num}
+    end
+    QuadraticMatrix.new(matrix)
+  end
+
+  def get_reverse_matrix
+
   end
 
   def have_inverse_matrix?

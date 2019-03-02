@@ -7,3 +7,5 @@ matrix1 = QuadraticMatrix.new([
                             ])
 
 p matrix1.calculate_determinant
+p matrix1.transpose.matrix
+p matrix1.multiply_by_number(0.5).matrix
