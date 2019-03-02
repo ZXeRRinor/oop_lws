@@ -94,7 +94,7 @@ class QuadraticMatrix
 
   def get_reverse_matrix
     if have_inverse_matrix?
-      calculate_cofactor_matrix.transpose.multiply_by_number(calculate_determinant)
+      calculate_cofactor_matrix.transpose.multiply_by_number(1 / calculate_determinant)
     end
   end
 
