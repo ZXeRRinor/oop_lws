@@ -1,6 +1,6 @@
 class QuadraticMatrix
 
-  attr_reader :matrix, :determinant
+  attr_reader :determinant
 
   def initialize(matrix)
     if matrix.class != Array
@@ -9,11 +9,18 @@ class QuadraticMatrix
     line_length = matrix[0].length
     matrix.each do |line|
       unless line.length == line_length
-        raise ArgumentError, "matrix have to contain lines with equal length"
+        raise ArgumentError, "matrix must contain lines with equal length"
       end
+    end
+    unless matrix.length == line_length
+      raise ArgumentError, "matrix must be quadratic"
     end
     @matrix = matrix
     @determinant = nil
+  end
+
+  def to_a
+    @matrix
   end
 
   def transpose
@@ -54,7 +61,7 @@ class QuadraticMatrix
   def calculate_cofactor_matrix
     length = @matrix.length
     cofactor_matrix = []
-    minor_matrix = calculate_minor_matrix.matrix
+    minor_matrix = calculate_minor_matrix.to_a
     (0...length).each do |j|
       cofactor_matrix.push([])
       (0...length).each do |i|
@@ -70,11 +77,10 @@ class QuadraticMatrix
     end
     determinant = 0
     if @determinant.nil?
-      p get_size
       if self.get_size == [2, 2]
         determinant = @matrix[0][0] * @matrix[1][1] - @matrix[1][0] * @matrix[0][1]
       else
-        calculate_cofactor_matrix.matrix.first.each_with_index do |elem, index|
+        calculate_cofactor_matrix.to_a.first.each_with_index do |elem, index|
           determinant += elem * @matrix.first[index]
         end
       end
