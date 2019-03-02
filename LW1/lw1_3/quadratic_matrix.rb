@@ -15,7 +15,7 @@ class QuadraticMatrix
     @matrix = matrix
     @determinant = nil
   end
-  
+
   def transpose
     length = @matrix.length
     matrix = @matrix.map(&:dup)
@@ -41,7 +41,11 @@ class QuadraticMatrix
         matrix = @matrix.map(&:dup)
         matrix.delete_at(j)
         matrix.each {|row| row.delete_at(i)}
-        minor_matrix[j][i] = QuadraticMatrix.new(matrix).calculate_determinant
+        if matrix.length == 1
+          minor_matrix[j][i] = matrix[0][0]
+        else
+          minor_matrix[j][i] = QuadraticMatrix.new(matrix).calculate_determinant
+        end
       end
     end
     QuadraticMatrix.new(minor_matrix)
@@ -54,7 +58,7 @@ class QuadraticMatrix
     (0...length).each do |j|
       cofactor_matrix.push([])
       (0...length).each do |i|
-        cofactor_matrix[j][i] = minor_matrix[j][i] * @matrix[j][i] * ((i + j) % 2 == 0 ? 1 : -1)
+        cofactor_matrix[j][i] = minor_matrix[j][i] * ((i + j) % 2 == 0 ? 1 : -1)
       end
     end
     QuadraticMatrix.new(cofactor_matrix)
@@ -65,12 +69,19 @@ class QuadraticMatrix
       raise ArgumentError, "can't calculate determinant"
     end
     determinant = 0
-    if self.get_size == [2, 2]
-      determinant = @matrix[0][0] * @matrix[1][1] - @matrix[1][0] * @matrix[0][1]
+    if @determinant.nil?
+      p get_size
+      if self.get_size == [2, 2]
+        determinant = @matrix[0][0] * @matrix[1][1] - @matrix[1][0] * @matrix[0][1]
+      else
+        calculate_cofactor_matrix.matrix.first.each_with_index do |elem, index|
+          determinant += elem * @matrix.first[index]
+        end
+      end
+      @determinant = determinant
     else
-      calculate_cofactor_matrix.matrix.first.each {|elem| determinant += elem}
+      @determinant
     end
-    @determinant = determinant
   end
 
   def multiply_by_number(num)
@@ -82,7 +93,9 @@ class QuadraticMatrix
   end
 
   def get_reverse_matrix
-
+    if have_inverse_matrix?
+      calculate_cofactor_matrix.transpose.multiply_by_number(calculate_determinant)
+    end
   end
 
   def have_inverse_matrix?
