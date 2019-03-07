@@ -1,4 +1,4 @@
-package LW2_1
+package LW2_2
 
 fun main(args: Array<String>) {
     val input: String? = readLine()
