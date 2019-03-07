@@ -1,8 +1,10 @@
+package LW2_1
+
 fun htmlDecode(in_str: String): String {
     var rangeStart = -1
     var rangeEnd: Int
     var result = in_str
-    var replacement = ""
+    var replacement:String
     var i = 0
     while (i < result.length) {
         if (i >= result.length) {
@@ -17,21 +19,26 @@ fun htmlDecode(in_str: String): String {
                 var lengthOfReplacement = 0
                 when (result.substring(rangeStart + 1, rangeEnd)) {
                     "quot" -> {
-                        replacement = "\""; lengthOfReplacement = 2 + 4 - 1
+                        replacement = "\""
+                        lengthOfReplacement = 2 + 4 - 1
                     }
                     "apos" -> {
-                        replacement = "\'"; lengthOfReplacement = 2 + 4 - 1
+                        replacement = "\'"
+                        lengthOfReplacement = 2 + 4 - 1
                     }
                     "lt" -> {
-                        replacement = "<"; lengthOfReplacement = 2 + 2 - 1
+                        replacement = "<"
+                        lengthOfReplacement = 2 + 2 - 1
                     }
                     "gt" -> {
-                        replacement = ">"; lengthOfReplacement = 2 + 2 - 1
+                        replacement = ">"
+                        lengthOfReplacement = 2 + 2 - 1
                     }
                     "amp" -> {
-                        replacement = "&"; lengthOfReplacement = 2 + 3 - 1
+                        replacement = "&"
+                        lengthOfReplacement = 2 + 3 - 1
                     }
-                    else -> ""
+                    else -> replacement = ""
                 }
                 result = result.replaceRange(rangeStart, rangeEnd + 1, replacement)
                 i -= lengthOfReplacement
