@@ -2,13 +2,20 @@ package LW2_3
 
 import java.io.File
 
-fun main(args: Array<String>) {
+fun readDictionaryFromFile(filepath: String): Map<String, String> {
     val words: MutableMap<String, String> = mutableMapOf()
-    val newWords: MutableMap<String, String> = mutableMapOf()
-    File("src/LW2_3/dictionary").forEachLine {
+    val file = File(filepath)
+    file.createNewFile()
+    file.forEachLine {
         val line = it.split('=')
         words[line[0]] = line[1]
     }
+    return words.toMap()
+}
+
+fun dictionary(filepath: String) {
+    val words = readDictionaryFromFile(filepath)
+    val newWords: MutableMap<String, String> = mutableMapOf()
     var input: String? = readLine()
     while (input != "...") {
         if (input != null) {
@@ -31,17 +38,25 @@ fun main(args: Array<String>) {
         }
         input = readLine()
     }
+    exitWithDictionarySavingSelect(newWords, filepath)
+}
+
+fun exitWithDictionarySavingSelect(newWords: Map<String, String>, filepath: String) {
     println("В словарь были внесены изменения. Хотите сохранить их перед выходом? [y/n]")
-    input = null
+    var input: String? = null
     while (input != "y" && input != "n") {
         input = readLine()
         if (input == "y") {
             for (word in newWords) {
-                File("src/LW2_3/dictionary").appendText("\n$word")
+                File(filepath).appendText("\n$word")
             }
         }
         if (input != "y" && input != "n") {
             println("Please input \'y\' for yes or \'n\' for no!")
         }
     }
+}
+
+fun main(args: Array<String>) {
+  dictionary("src/LW2_3/dictionary")
 }
