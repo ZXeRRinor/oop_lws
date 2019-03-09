@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
     while (input != "...") {
         if (input != null) {
             var translation: String? = words[input]
-            if (translation != null) {
+            if (translation == null) {
                 translation = newWords[input]
             }
             if (translation != null) {
@@ -22,12 +22,26 @@ fun main(args: Array<String>) {
                 println("Неизвестное слово $input. Введите перевод или пустую строку для отказа.")
                 translation = readLine()
                 if (translation != null && translation != "") {
-                    File("src/LW2_3/dictionary").appendText("\n$input=$translation")
                     newWords[input] = translation
+                    println("Слово $input сохранено в словаре как $translation")
+                } else {
+                    println("Слово $input проигнорировано.")
                 }
             }
         }
         input = readLine()
     }
-
+    println("В словарь были внесены изменения. Хотите сохранить их перед выходом? [y/n]")
+    input = null
+    while (input != "y" && input != "n") {
+        input = readLine()
+        if (input == "y") {
+            for (word in newWords) {
+                File("src/LW2_3/dictionary").appendText("\n$word")
+            }
+        }
+        if (input != "y" && input != "n") {
+            println("Please input \'y\' for yes or \'n\' for no!")
+        }
+    }
 }
