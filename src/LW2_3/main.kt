@@ -42,21 +42,23 @@ fun dictionary(filepath: String) {
 }
 
 fun exitWithDictionarySavingSelect(newWords: Map<String, String>, filepath: String) {
-    println("В словарь были внесены изменения. Хотите сохранить их перед выходом? [y/n]")
-    var input: String? = null
-    while (input != "y" && input != "n") {
-        input = readLine()
-        if (input == "y") {
-            for (word in newWords) {
-                File(filepath).appendText("\n$word")
+    if (!newWords.isEmpty()) {
+        println("В словарь были внесены изменения. Хотите сохранить их перед выходом? [y/n]")
+        var input: String? = null
+        while (input != "y" && input != "n") {
+            input = readLine()
+            if (input == "y") {
+                for (word in newWords) {
+                    File(filepath).appendText("\n$word")
+                }
             }
-        }
-        if (input != "y" && input != "n") {
-            println("Please input \'y\' for yes or \'n\' for no!")
+            if (input != "y" && input != "n") {
+                println("Please input \'y\' for yes or \'n\' for no!")
+            }
         }
     }
 }
 
 fun main(args: Array<String>) {
-  dictionary("src/LW2_3/dictionary")
+    dictionary("src/LW2_3/dictionary")
 }
