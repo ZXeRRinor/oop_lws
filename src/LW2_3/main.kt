@@ -13,23 +13,34 @@ fun readDictionaryFromFile(filepath: String): Map<String, String> {
     return words.toMap()
 }
 
+fun translateToRussian(word: String, wordList: Map<String, String>): String = wordList[word] ?: ""
+
+fun translateToEnglish(word: String, wordList: Map<String, String>): String {
+    for(index in wordList.keys){
+        if (wordList[index] == word) {
+            return index
+        }
+    }
+    return ""
+}
+
+fun addNewWord(word: Map<String, String>, wordList: Map<String, String>): Map<String, String> = wordList.plus(word)
+
 fun dictionary(filepath: String) {
     val words = readDictionaryFromFile(filepath)
-    val newWords: MutableMap<String, String> = mutableMapOf()
+    var newWords: Map<String, String> = mapOf()
     var input: String? = readLine()
     while (input != "...") {
         if (input != null) {
-            var translation: String? = words[input]
-            if (translation == null) {
-                translation = newWords[input]
-            }
-            if (translation != null) {
+            words.plus(newWords)
+            var translation = translateToRussian(input, words.plus(newWords))
+            if (translation != "") {
                 println("$input => $translation")
             } else {
                 println("Неизвестное слово $input. Введите перевод или пустую строку для отказа.")
-                translation = readLine()
-                if (translation != null && translation != "") {
-                    newWords[input] = translation
+                translation = readLine() ?: ""
+                if (translation != "") {
+                    newWords = addNewWord(mapOf(input to translation), newWords)
                     println("Слово $input сохранено в словаре как $translation")
                 } else {
                     println("Слово $input проигнорировано.")
@@ -60,5 +71,6 @@ fun exitWithDictionarySavingSelect(newWords: Map<String, String>, filepath: Stri
 }
 
 fun main(args: Array<String>) {
+    println(args)
     dictionary("src/LW2_3/dictionary")
 }
