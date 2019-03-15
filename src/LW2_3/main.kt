@@ -16,7 +16,7 @@ fun readDictionaryFromFile(filepath: String): Map<String, String> {
 fun translateToRussian(word: String, wordList: Map<String, String>): String = wordList[word] ?: ""
 
 fun translateToEnglish(word: String, wordList: Map<String, String>): String {
-    for(index in wordList.keys){
+    for (index in wordList.keys) {
         if (wordList[index] == word) {
             return index
         }
@@ -59,8 +59,13 @@ fun exitWithDictionarySavingSelect(newWords: Map<String, String>, filepath: Stri
         while (input != "y" && input != "n") {
             input = readLine()
             if (input == "y") {
+                val file = File(filepath)
                 for (word in newWords) {
-                    File(filepath).appendText("\n$word")
+                    if (file.length() != 0L) {
+                        file.appendText("\n$word")
+                    } else {
+                        file.appendText("$word")
+                    }
                 }
             }
             if (input != "y" && input != "n") {
@@ -71,6 +76,13 @@ fun exitWithDictionarySavingSelect(newWords: Map<String, String>, filepath: Stri
 }
 
 fun main(args: Array<String>) {
-    println(args)
-    dictionary("src/LW2_3/dictionary")
+    println("Введите имя файла (оставьте пустым для \'dictionary\'): ")
+    val filename = readLine() ?: ""
+    dictionary(
+        "src/LW2_3/${if (filename != "") {
+            filename
+        } else {
+            "dictionary"
+        }}"
+    )
 }
