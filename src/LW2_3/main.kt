@@ -42,7 +42,7 @@ fun translateToEnglish(word: String, wordList: Map<String, String>): String {
 
 fun addNewWord(word: Map<String, String>, wordList: Map<String, String>): Map<String, String> = wordList.plus(word)
 
-fun determinateLanguage(word: String): String {
+fun determineLanguage(word: String): String {
     if (word[0].toLowerCase() in 'a'..'z') {
         return "en"
     }
@@ -52,21 +52,20 @@ fun determinateLanguage(word: String): String {
     return ""
 }
 
-fun dictionary(filepath: String) {
+fun startDialog(filepath: String) {
     val file = File(filepath)
     val words = readDictionaryFromFile(file)
     var newWords: Map<String, String> = mapOf()
     var input: String = readLine() ?: ""
 
     while (input != "...") {
-        if (determinateLanguage(input) != "") {
+        if (determineLanguage(input) != "") {
             words.plus(newWords)
             var translation: String
-            translation = when (determinateLanguage(input)) {
+            translation = when (determineLanguage(input)) {
                 "en" -> {
                     translateToRussian(input, words.plus(newWords))
                 }
-
                 "ru" -> {
                     translateToEnglish(input, words.plus(newWords))
                 }
@@ -78,7 +77,7 @@ fun dictionary(filepath: String) {
                 println("Неизвестное слово \"$input\". Введите перевод или пустую строку для отказа.")
                 translation = readLine() ?: ""
                 if (translation != "") {
-                    newWords = when (determinateLanguage(input)) {
+                    newWords = when (determineLanguage(input)) {
                         "en" -> {
                             addNewWord(mapOf(input to translation), newWords)
                         }
@@ -130,7 +129,7 @@ fun launch() {
     println("Введите имя файла (оставьте пустым для \"dictionary\"): ")
     val filename = readLine() ?: ""
     println("Введите слово для перевода: ")
-    dictionary(
+    startDialog(
         "src/LW2_3/${if (filename != "") {
             filename
         } else {

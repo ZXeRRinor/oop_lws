@@ -2,7 +2,6 @@ package LW2_3.test
 
 import LW2_3.*
 import org.junit.After
-import org.junit.Ignore
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -12,11 +11,11 @@ internal class MainKtTest {
 
     @Test
     fun determinateLanguageTest() {
-        assertEquals("en", determinateLanguage("hello"))
-        assertEquals("en", determinateLanguage("Hello"))
-        assertEquals("ru", determinateLanguage("привет"))
-        assertEquals("ru", determinateLanguage("Привет"))
-        assertEquals("", determinateLanguage("123"))
+        assertEquals("en", determineLanguage("hello"))
+        assertEquals("en", determineLanguage("Hello"))
+        assertEquals("ru", determineLanguage("привет"))
+        assertEquals("ru", determineLanguage("Привет"))
+        assertEquals("", determineLanguage("123"))
     }
 
     @Test
