@@ -34,20 +34,35 @@ fun translateToEnglish(word: String, wordList: Map<String, String>): String {
 
 fun addNewWord(word: Map<String, String>, wordList: Map<String, String>): Map<String, String> = wordList.plus(word)
 
+fun determinateLanguage(word: String): String {
+    if (word[0].toLowerCase() in 'a'..'z') {
+        return "en"
+    }
+    if (word[0].toLowerCase() in 'а'..'я') {
+        return "ru"
+    }
+    return ""
+}
+
 fun dictionary(filepath: String) {
     val file = File(filepath)
     val words = readDictionaryFromFile(file)
     var newWords: Map<String, String> = mapOf()
     var input: String = readLine() ?: ""
+
     while (input != "...") {
         if (input[0].toLowerCase() in 'a'..'z' || input[0].toLowerCase() in 'а'..'я') {
             words.plus(newWords)
-            var translation = ""
-            if (input[0].toLowerCase() in 'a'..'z') {
-                translation = translateToRussian(input, words.plus(newWords))
-            }
-            if (input[0].toLowerCase() in 'а'..'я') {
-                translation = translateToEnglish(input, words.plus(newWords))
+            var translation: String
+            translation = when (determinateLanguage(input)) {
+                "en" -> {
+                    translateToRussian(input, words.plus(newWords))
+                }
+
+                "ru" -> {
+                    translateToEnglish(input, words.plus(newWords))
+                }
+                else -> ""
             }
             if (translation != "") {
                 println("$input => $translation")
@@ -55,11 +70,15 @@ fun dictionary(filepath: String) {
                 println("Неизвестное слово \"$input\". Введите перевод или пустую строку для отказа.")
                 translation = readLine() ?: ""
                 if (translation != "") {
-                    if (input[0].toLowerCase() in 'а'..'я') {
-                        newWords = addNewWord(mapOf(translation to input), newWords)
-                    }
-                    if (input[0].toLowerCase() in 'a'..'z') {
-                        newWords = addNewWord(mapOf(input to translation), newWords)
+                    newWords = when (determinateLanguage(input)) {
+                        "en" -> {
+                            addNewWord(mapOf(translation to input), newWords)
+                        }
+
+                        "ru" -> {
+                            addNewWord(mapOf(input to translation), newWords)
+                        }
+                        else -> newWords
                     }
                     println("Слово \"$input\" сохранено в словаре как \"$translation\"")
                 } else {
@@ -69,9 +88,13 @@ fun dictionary(filepath: String) {
         }
         input = readLine() ?: ""
     }
+    askForSave(newWords, file)
+}
+
+fun askForSave(newWords: Map<String, String>, file: File) {
     if (newWords.isNotEmpty()) {
         println("В словарь были внесены изменения. Хотите сохранить их перед выходом? [y/n]")
-        input = ""
+        var input = ""
         while (input != "y" && input != "n") {
             input = readLine() ?: ""
             if (input == "y") {
