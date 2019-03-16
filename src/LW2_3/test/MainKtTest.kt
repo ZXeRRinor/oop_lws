@@ -11,6 +11,15 @@ import java.io.File
 internal class MainKtTest {
 
     @Test
+    fun determinateLanguageTest() {
+        assertEquals("en", determinateLanguage("hello"))
+        assertEquals("en", determinateLanguage("Hello"))
+        assertEquals("ru", determinateLanguage("привет"))
+        assertEquals("ru", determinateLanguage("Привет"))
+        assertEquals("", determinateLanguage("123"))
+    }
+
+    @Test
     fun createDictionaryFileTest() {
         val file = File("src/LW2_3/test/test_dict")
         createDictionaryFile(file)
@@ -66,6 +75,7 @@ internal class MainKtTest {
     fun addNewWordTest() {
         assertEquals(
             mapOf("horse" to "лошадь", "hello" to "привет", "day" to "день"),
-            addNewWord(mapOf("hello" to "привет"), mapOf("horse" to "лошадь", "day" to "день")))
+            addNewWord(mapOf("hello" to "привет"), mapOf("horse" to "лошадь", "day" to "день"))
+        )
     }
 }

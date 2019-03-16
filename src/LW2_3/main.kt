@@ -19,12 +19,20 @@ fun readDictionaryFromFile(file: File): Map<String, String> {
 
 fun createDictionaryFile(file: File): Boolean = file.createNewFile()
 
-fun translateToRussian(word: String, wordList: Map<String, String>): String = wordList[word.toLowerCase()] ?: ""
+fun translateToRussian(word: String, wordList: Map<String, String>): String {
+    if (word in wordList.keys) {
+        return wordList[word] ?: ""
+    }
+    if (word.toLowerCase() in wordList.keys) {
+        return wordList[word.toLowerCase()] ?: ""
+    }
+    return ""
+}
 
 fun translateToEnglish(word: String, wordList: Map<String, String>): String {
     if (wordList.isNotEmpty()) {
         for (index in wordList.keys) {
-            if (wordList[index] == word.toLowerCase()) {
+            if (wordList[index] != null && (wordList[index]!!.toLowerCase() == word.toLowerCase())) {
                 return index
             }
         }
@@ -51,7 +59,7 @@ fun dictionary(filepath: String) {
     var input: String = readLine() ?: ""
 
     while (input != "...") {
-        if (input[0].toLowerCase() in 'a'..'z' || input[0].toLowerCase() in 'а'..'я') {
+        if (determinateLanguage(input) != "") {
             words.plus(newWords)
             var translation: String
             translation = when (determinateLanguage(input)) {
@@ -72,11 +80,10 @@ fun dictionary(filepath: String) {
                 if (translation != "") {
                     newWords = when (determinateLanguage(input)) {
                         "en" -> {
-                            addNewWord(mapOf(translation to input), newWords)
-                        }
-
-                        "ru" -> {
                             addNewWord(mapOf(input to translation), newWords)
+                        }
+                        "ru" -> {
+                            addNewWord(mapOf(translation to input), newWords)
                         }
                         else -> newWords
                     }
@@ -119,7 +126,7 @@ fun saveDictionaryToFile(newWords: Map<String, String>, file: File) {
     }
 }
 
-fun main(args: Array<String>) {
+fun launch() {
     println("Введите имя файла (оставьте пустым для \"dictionary\"): ")
     val filename = readLine() ?: ""
     println("Введите слово для перевода: ")
@@ -130,4 +137,8 @@ fun main(args: Array<String>) {
             "dictionary"
         }}"
     )
+}
+
+fun main(args: Array<String>) {
+    launch()
 }
