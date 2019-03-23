@@ -19,11 +19,11 @@ begin
     filename = ARGV.first
   end
 
-  quadratic_matrix = QuadraticMatrix.new(read_matrix_from_file(filename, ' '))
-  if quadratic_matrix.nil?
+  quadratic_matrix = QuadraticMatrix.new(read_matrix_from_file(filename, ' ')).get_reverse_matrix.to_a
+  if quadratic_matrix == []
     puts "Matrix are degenerate"
   end
-  quadratic_matrix.get_reverse_matrix.to_a.each(&method(:p))
+  quadratic_matrix.each(&method(:p))
 
 rescue ArgumentError => errMsg
   puts(errMsg)
