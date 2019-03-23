@@ -41,8 +41,8 @@ def test_matrix
                                    [0, 0, 1]
                                   ])
   puts(generate_output_message(lambda {quad_mtrx.get_reverse_matrix.to_a == [[1, 0, -5],
-                                                                        [0, 1, 9],
-                                                                        [0, 0, 1]
+                                                                             [0, 1, 9],
+                                                                             [0, 0, 1]
   ]}, "Inverse matrix"))
 end
 
@@ -59,7 +59,11 @@ def test_matrix_multiplying_by_number
                                    [4, 5, 6],
                                    [7, 8, 9]
                                   ])
-  puts(generate_output_message(lambda {quad_mtrx.multiply_by_number(2).to_a == [[2, 4, 6], [8, 10, 12], [14, 16, 18]]}, "Matrix multiplying by number"))
+  puts(generate_output_message(lambda {quad_mtrx.multiply_by_number(2).to_a == [
+      [2, 4, 6],
+      [8, 10, 12],
+      [14, 16, 18]
+  ]}, "Matrix multiplying by number"))
 end
 
 def test_matrix_transpose
@@ -67,7 +71,11 @@ def test_matrix_transpose
                                    [4, 5, 6],
                                    [7, 8, 9]
                                   ])
-  puts(generate_output_message(lambda {quad_mtrx.transpose.to_a == [[1, 4, 7], [2, 5, 8], [3, 6, 9]]}, "Matrix transposing"))
+  puts(generate_output_message(lambda {quad_mtrx.transpose.to_a == [
+      [1, 4, 7],
+      [2, 5, 8],
+      [3, 6, 9]
+  ]}, "Matrix transposing"))
 end
 
 
