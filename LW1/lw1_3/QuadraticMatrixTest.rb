@@ -35,7 +35,7 @@ def test_degenerate_matrix_have_inverse_matrix
   puts(generate_output_message(lambda {!quad_mtrx.have_inverse_matrix?}, "Degenerate matrix have inverse matrix"))
 end
 
-def test_matrix
+def test_matrix_inverse
   quad_mtrx = QuadraticMatrix.new([[1, 0, 5],
                                    [0, 1, -9],
                                    [0, 0, 1]
@@ -81,7 +81,7 @@ end
 
 test_degenerate_matrix_determinant
 test_degenerate_matrix_have_inverse_matrix
-test_matrix
+test_matrix_inverse
 test_degenerate_matrix_inverse_matrix
 test_matrix_have_inverse_matrix
 test_matrix_multiplying_by_number
