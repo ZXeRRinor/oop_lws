@@ -34,11 +34,6 @@ class QuadraticMatrix
     QuadraticMatrix.new(matrix)
   end
 
-  def can_calculate_determinant?
-    size = get_size
-    size[0] == size[1]
-  end
-
   def calculate_minor_matrix
     length = @matrix.length
     minor_matrix = []
@@ -72,9 +67,6 @@ class QuadraticMatrix
   end
 
   def calculate_determinant
-    unless can_calculate_determinant?
-      raise ArgumentError, "can't calculate determinant"
-    end
     determinant = 0
     if @determinant.nil?
       if self.get_size == [2, 2]
