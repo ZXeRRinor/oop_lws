@@ -13,11 +13,12 @@ fun generatePrimeNumbersSet(max: Int): Set<Int> {
     }
     val sqrtOfMax = ceil(sqrt(max.toDouble())).toInt()
     for (i in 3..sqrtOfMax) {
-        if (numbers[i] && sqrtOfMax >= i) {
-            var j: Long = (i * i).toLong()
+        if (numbers[i]) {
+            var j: Int = i * i
+            val step = 2 * i
             while (j <= max) {
-                numbers[j.toInt()] = false
-                j += i * 2
+                numbers[j] = false
+                j += step
             }
         }
     }
