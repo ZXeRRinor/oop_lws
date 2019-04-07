@@ -1,9 +1,9 @@
 package LW2_3.test
 
 import LW2_3.*
-import org.junit.After
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.*
 import java.io.File
 
@@ -37,7 +37,7 @@ internal class MainKtTest {
         file.deleteOnExit()
     }
 
-    @After
+    @AfterEach
     fun deleteTestFile() {
         val file = File("src/LW2_3/test/test_dict")
         val file2 = File("src/LW2_3/test/test_dictionary.txt")
