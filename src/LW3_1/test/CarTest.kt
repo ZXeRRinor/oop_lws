@@ -36,13 +36,13 @@ internal class CarTest {
     }
 
     @Test
-    fun raiseSpeedAtNeutralGear() {
+    fun increaseSpeedAtNeutralGear() {
         val car = Car(true, Car.MovingDirection.FORWARD, 30, Car.Gear.NEUTRAL)
         assertThrows(InvalidGearToChangeSpeed::class.java) { car.setSpeed(40) }
     }
 
     @Test
-    fun reduceSpeedAtNeutralGear() {
+    fun decreaseSpeedAtNeutralGear() {
         val car = Car(true, Car.MovingDirection.FORWARD, 30, Car.Gear.NEUTRAL)
         assertEquals(true, car.setSpeed(20))
     }

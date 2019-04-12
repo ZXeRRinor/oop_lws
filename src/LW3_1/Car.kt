@@ -9,7 +9,7 @@ class Car() {
     }
 
     enum class Gear(val number: Int, val speedRange: IntRange) {
-        REVERSE(-1, 0..20), NEUTRAL(0, 0..0), FIRST(1, 0..30),
+        REVERSE(-1, 0..20), NEUTRAL(0, 0..150), FIRST(1, 0..30),
         SECOND(2, 20..50), THIRD(3, 30..60), FOURTH(4, 40..90),
         FIFTH(5, 50..150)
     }
@@ -48,7 +48,19 @@ class Car() {
     }
 
     fun setSpeed(speed: Int) {
-
+        if(speed in this.currentGear.speedRange) {
+            if(speed > this.currentSpeed) {
+                if (this.currentGear != Gear.NEUTRAL) {
+                    this.currentSpeed = speed
+                }else{
+                    throw InvalidGearToChangeSpeed("Speed can't be increased at neutral gear.")
+                }
+            }else{
+                this.currentSpeed = speed
+            }
+        }else{
+            throw InvalidGearToChangeSpeed("Speed out of range of current gear.")
+        }
     }
 
 }
