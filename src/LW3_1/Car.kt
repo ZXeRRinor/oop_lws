@@ -2,6 +2,7 @@ package LW3_1
 
 class InvalidSpeedToChangeGear(message: String) : Exception(message)
 class InvalidGearToChangeSpeed(message: String) : Exception(message)
+class EngineState(message: String) : Exception(message)
 
 class Car() {
     enum class MovingDirection(val value: Int) {
@@ -32,14 +33,26 @@ class Car() {
     }
 
     fun turnOnEngine() {
-        if(!this.isEngineStarted) {
+        if (!this.isEngineStarted) {
             this.isEngineStarted = true
+        } else {
+            throw EngineState("Engine is although tuned on.")
         }
     }
 
     fun turnOffEngine() {
-        if(this.isEngineStarted && this.currentGear == Gear.NEUTRAL && this.currentSpeed == 0){
-            this.isEngineStarted = false
+        if (this.isEngineStarted) {
+            if (this.currentGear == Gear.NEUTRAL) {
+                if (this.currentSpeed == 0) {
+                    this.isEngineStarted = false
+                } else {
+                    throw EngineState("Engine can be turned off at zero speed only")
+                }
+            } else {
+                throw EngineState("Engine can be turned off at neutral gear only.")
+            }
+        } else {
+            throw EngineState("Engine is although tuned off.")
         }
     }
 
@@ -48,17 +61,17 @@ class Car() {
     }
 
     fun setSpeed(speed: Int) {
-        if(speed in this.currentGear.speedRange) {
-            if(speed > this.currentSpeed) {
+        if (speed in this.currentGear.speedRange) {
+            if (speed > this.currentSpeed) {
                 if (this.currentGear != Gear.NEUTRAL) {
                     this.currentSpeed = speed
-                }else{
+                } else {
                     throw InvalidGearToChangeSpeed("Speed can't be increased at neutral gear.")
                 }
-            }else{
+            } else {
                 this.currentSpeed = speed
             }
-        }else{
+        } else {
             throw InvalidGearToChangeSpeed("Speed out of range of current gear.")
         }
     }
