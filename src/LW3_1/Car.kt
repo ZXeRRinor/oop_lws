@@ -14,10 +14,10 @@ class Car() {
         FIFTH(5, 50..150)
     }
 
-    var isEngineStarted = false
-    var currentMovingDirection = MovingDirection.STOP
-    var currentSpeed = 0
-    var currentGear = Gear.NEUTRAL
+    private var isEngineStarted = false
+    private var currentMovingDirection = MovingDirection.STOP
+    private var currentSpeed = 0
+    private var currentGear = Gear.NEUTRAL
 
     constructor(
         engineStatus: Boolean,
@@ -32,11 +32,15 @@ class Car() {
     }
 
     fun turnOnEngine() {
-
+        if(!this.isEngineStarted) {
+            this.isEngineStarted = true
+        }
     }
 
     fun turnOffEngine() {
-
+        if(this.isEngineStarted && this.currentGear == Gear.NEUTRAL && this.currentSpeed == 0){
+            this.isEngineStarted = false
+        }
     }
 
     fun setGear(gear: Gear) {

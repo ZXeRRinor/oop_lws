@@ -14,10 +14,6 @@ import java.io.IOException
 internal class CarTest {
 
     @Test
-    fun isEngineStarted() {
-    }
-
-    @Test
     fun changeGearToReverseAtNotZeroSpeed() {
         val car1 = Car(true, Car.MovingDirection.FORWARD, 10, Car.Gear.FIRST)
         assertThrows(InvalidSpeedToChangeGear::class.java) { car1.setGear(Car.Gear.REVERSE) }
