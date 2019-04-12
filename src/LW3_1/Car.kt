@@ -32,15 +32,16 @@ class Car() {
         currentGear = gear
     }
 
-    fun turnOnEngine() {
+    fun turnOnEngine(): Boolean {
         if (!this.isEngineStarted) {
             this.isEngineStarted = true
         } else {
             throw EngineStateException("Engine is although tuned on.")
         }
+        return true
     }
 
-    fun turnOffEngine() {
+    fun turnOffEngine(): Boolean {
         if (this.isEngineStarted) {
             if (this.currentGear == Gear.NEUTRAL) {
                 if (this.currentSpeed == 0) {
@@ -54,13 +55,15 @@ class Car() {
         } else {
             throw EngineStateException("Engine is although tuned off.")
         }
+        return true
     }
 
-    fun setGear(gear: Gear) {
+    fun setGear(gear: Gear): Boolean {
 
+        return true
     }
 
-    fun setSpeed(speed: Int) {
+    fun setSpeed(speed: Int): Boolean {
         if (speed in this.currentGear.speedRange) {
             if (speed > this.currentSpeed) {
                 if (this.currentGear != Gear.NEUTRAL) {
@@ -74,6 +77,7 @@ class Car() {
         } else {
             throw InvalidGearToChangeSpeed("Speed out of range of current gear.")
         }
+        return true
     }
 
 }
