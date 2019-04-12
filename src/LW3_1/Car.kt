@@ -1,5 +1,7 @@
 package LW3_1
 
+import java.util.stream.Stream
+
 class InvalidSpeedToSwitchGear(message: String) : Exception(message)
 class InvalidGearToChangeSpeed(message: String) : Exception(message)
 class EngineStateException(message: String) : Exception(message)
@@ -118,6 +120,13 @@ class Car() {
             }
         }
         return true
+    }
+
+    fun printInfo() {
+        println("Engine is started: $isEngineStarted")
+        println("Current moving direction is: $currentMovingDirection")
+        println("Current gear is: $currentGear")
+        println("Current speed is: $currentSpeed")
     }
 
 }
