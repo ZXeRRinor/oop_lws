@@ -2,7 +2,7 @@ package LW3_1
 
 class InvalidSpeedToChangeGear(message: String) : Exception(message)
 class InvalidGearToChangeSpeed(message: String) : Exception(message)
-class EngineState(message: String) : Exception(message)
+class EngineStateException(message: String) : Exception(message)
 
 class Car() {
     enum class MovingDirection(val value: Int) {
@@ -36,7 +36,7 @@ class Car() {
         if (!this.isEngineStarted) {
             this.isEngineStarted = true
         } else {
-            throw EngineState("Engine is although tuned on.")
+            throw EngineStateException("Engine is although tuned on.")
         }
     }
 
@@ -46,13 +46,13 @@ class Car() {
                 if (this.currentSpeed == 0) {
                     this.isEngineStarted = false
                 } else {
-                    throw EngineState("Engine can be turned off at zero speed only")
+                    throw EngineStateException("Engine can be turned off at zero speed only")
                 }
             } else {
-                throw EngineState("Engine can be turned off at neutral gear only.")
+                throw EngineStateException("Engine can be turned off at neutral gear only.")
             }
         } else {
-            throw EngineState("Engine is although tuned off.")
+            throw EngineStateException("Engine is although tuned off.")
         }
     }
 
