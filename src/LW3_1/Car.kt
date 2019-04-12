@@ -1,13 +1,17 @@
 package LW3_1
 
+class InvalidSpeedToChangeGear(message: String) : Exception(message)
+class InvalidGearToChangeSpeed(message: String) : Exception(message)
+
 class Car() {
     enum class MovingDirection(val value: Int) {
         FORWARD(1), BACKWARD(-1), STOP(0)
     }
 
-    enum class Gear(val range: IntRange) {
-        REVERSE(0..20), NEUTRAL(0..0), FIRST(0..30), SECOND(20..50),
-        THIRD(30..60), FOURTH(40..90), FIFTH(50..150)
+    enum class Gear(val number: Int, val speedRange: IntRange) {
+        REVERSE(-1, 0..20), NEUTRAL(0, 0..0), FIRST(1, 0..30),
+        SECOND(2, 20..50), THIRD(3, 30..60), FOURTH(4, 40..90),
+        FIFTH(5, 50..150)
     }
 
     var isEngineStarted = false
@@ -27,5 +31,20 @@ class Car() {
         currentGear = gear
     }
 
+    fun turnOnEngine() {
+
+    }
+
+    fun turnOffEngine() {
+
+    }
+
+    fun setGear(gear: Gear) {
+
+    }
+
+    fun setSpeed(speed: Int) {
+
+    }
 
 }
