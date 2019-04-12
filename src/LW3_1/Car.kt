@@ -59,20 +59,33 @@ class Car() {
     }
 
     fun setGear(gear: Gear): Boolean {
-
+        if (gear == Gear.REVERSE) {
+            if (currentSpeed == 0) {
+                this.currentGear = gear
+            } else {
+                throw InvalidSpeedToChangeGear("Reverse gear can be switched only at zero speed.")
+            }
+        }
+        if (gear.number > 0 && currentGear == Gear.REVERSE) {
+            if (currentSpeed == 0) {
+                currentGear = gear
+            } else {
+                throw InvalidSpeedToChangeGear("Gears from first to fifth can be be switched from reverse gear only at zero speed.")
+            }
+        }
         return true
     }
 
     fun setSpeed(speed: Int): Boolean {
-        if (speed in this.currentGear.speedRange) {
-            if (speed > this.currentSpeed) {
-                if (this.currentGear != Gear.NEUTRAL) {
-                    this.currentSpeed = speed
+        if (speed in currentGear.speedRange) {
+            currentSpeed = if (speed > currentSpeed) {
+                if (currentGear != Gear.NEUTRAL) {
+                    speed
                 } else {
                     throw InvalidGearToChangeSpeed("Speed can't be increased at neutral gear.")
                 }
             } else {
-                this.currentSpeed = speed
+                speed
             }
         } else {
             throw InvalidGearToChangeSpeed("Speed out of range of current gear.")

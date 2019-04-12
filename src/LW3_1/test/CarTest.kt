@@ -10,7 +10,6 @@ import java.nio.file.Files
 import java.io.IOException
 
 
-
 internal class CarTest {
 
     @Test
@@ -33,6 +32,13 @@ internal class CarTest {
     fun changeGearToReverseAtZeroSpeed() {
         val car = Car(true, Car.MovingDirection.FORWARD, 0, Car.Gear.FIRST)
         assertEquals(true, car.setGear(Car.Gear.REVERSE))
+    }
+
+    @Test
+    fun changeGearToFirstFromReverseAtZeroSpeed() {
+        val car = Car(true, Car.MovingDirection.BACKWARD, 10, Car.Gear.REVERSE)
+        car.setSpeed(0)
+        assertEquals(true, car.setGear(Car.Gear.FIRST))
     }
 
     @Test
