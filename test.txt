@@ -1,6 +1,0 @@
-﻿privet
-testfile
-filefile
-abcabcabc
-cbaac
-testtestfiletest
