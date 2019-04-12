@@ -33,8 +33,8 @@ class Car() {
     }
 
     fun turnOnEngine(): Boolean {
-        if (!this.isEngineStarted) {
-            this.isEngineStarted = true
+        if (!isEngineStarted) {
+            isEngineStarted = true
         } else {
             throw EngineStateException("Engine is although tuned on.")
         }
@@ -42,10 +42,10 @@ class Car() {
     }
 
     fun turnOffEngine(): Boolean {
-        if (this.isEngineStarted) {
-            if (this.currentGear == Gear.NEUTRAL) {
-                if (this.currentSpeed == 0) {
-                    this.isEngineStarted = false
+        if (isEngineStarted) {
+            if (currentGear == Gear.NEUTRAL) {
+                if (currentSpeed == 0) {
+                    isEngineStarted = false
                 } else {
                     throw EngineStateException("Engine can be turned off at zero speed only")
                 }
@@ -59,36 +59,63 @@ class Car() {
     }
 
     fun setGear(gear: Gear): Boolean {
-        if (gear == Gear.REVERSE) {
-            if (currentSpeed == 0) {
-                this.currentGear = gear
-            } else {
-                throw InvalidSpeedToChangeGear("Reverse gear can be switched only at zero speed.")
+        if (isEngineStarted) {
+            if (gear == Gear.REVERSE) {
+                if (currentSpeed == 0) {
+                    currentGear = gear
+                    currentMovingDirection = MovingDirection.BACKWARD
+                } else {
+                    throw InvalidSpeedToChangeGear("Reverse gear can be switched only at zero speed.")
+                }
+            }
+            if (gear.number > 0) {
+                if (currentGear == Gear.REVERSE) {
+                    if (currentSpeed == 0) {
+                        currentGear = gear
+                        currentMovingDirection = MovingDirection.FORWARD
+                    } else {
+                        throw InvalidSpeedToChangeGear("Gears from first to fifth can be be switched from reverse gear only at zero speed.")
+                    }
+                } else {
+                    if (currentSpeed in gear.speedRange) {
+                        currentGear = gear
+                        currentMovingDirection = MovingDirection.FORWARD
+                    }
+                }
+            }
+        } else {
+            if (gear != Gear.NEUTRAL) {
+                throw EngineStateException("Gears other than neutral can be switched only when engine is started.")
             }
         }
-        if (gear.number > 0 && currentGear == Gear.REVERSE) {
-            if (currentSpeed == 0) {
-                currentGear = gear
-            } else {
-                throw InvalidSpeedToChangeGear("Gears from first to fifth can be be switched from reverse gear only at zero speed.")
-            }
+        if (gear == Gear.NEUTRAL) {
+            currentGear = gear
         }
         return true
     }
 
     fun setSpeed(speed: Int): Boolean {
-        if (speed in currentGear.speedRange) {
-            currentSpeed = if (speed > currentSpeed) {
-                if (currentGear != Gear.NEUTRAL) {
-                    speed
+        if (isEngineStarted) {
+            if (speed in currentGear.speedRange) {
+                currentSpeed = if (speed > currentSpeed) {
+                    if (currentGear != Gear.NEUTRAL) {
+                        speed
+                    } else {
+                        throw InvalidGearToChangeSpeed("Speed can't be increased at neutral gear.")
+                    }
                 } else {
-                    throw InvalidGearToChangeSpeed("Speed can't be increased at neutral gear.")
+                    speed
+                }
+                if (speed == 0) {
+                    this.currentMovingDirection = MovingDirection.STOP
                 }
             } else {
-                speed
+                throw InvalidGearToChangeSpeed("Speed out of range of current gear.")
             }
         } else {
-            throw InvalidGearToChangeSpeed("Speed out of range of current gear.")
+            if (speed != 0) {
+                throw EngineStateException("Speed can be more than zero only when engine is started.")
+            }
         }
         return true
     }
