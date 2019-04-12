@@ -1,6 +1,6 @@
 package LW3_1
 
-class InvalidSpeedToChangeGear(message: String) : Exception(message)
+class InvalidSpeedToSwitchGear(message: String) : Exception(message)
 class InvalidGearToChangeSpeed(message: String) : Exception(message)
 class EngineStateException(message: String) : Exception(message)
 
@@ -65,7 +65,7 @@ class Car() {
                     currentGear = gear
                     currentMovingDirection = MovingDirection.BACKWARD
                 } else {
-                    throw InvalidSpeedToChangeGear("Reverse gear can be switched only at zero speed.")
+                    throw InvalidSpeedToSwitchGear("Reverse gear can be switched only at zero speed.")
                 }
             }
             if (gear.number > 0) {
@@ -74,7 +74,7 @@ class Car() {
                         currentGear = gear
                         currentMovingDirection = MovingDirection.FORWARD
                     } else {
-                        throw InvalidSpeedToChangeGear("Gears from first to fifth can be be switched from reverse gear only at zero speed.")
+                        throw InvalidSpeedToSwitchGear("Gears from first to fifth can be be switched from reverse gear only at zero speed.")
                     }
                 } else {
                     if (currentSpeed in gear.speedRange) {

@@ -3,12 +3,10 @@ package LW3_1.test
 import LW3_1.Car
 import LW3_1.EngineStateException
 import LW3_1.InvalidGearToChangeSpeed
-import LW3_1.InvalidSpeedToChangeGear
+import LW3_1.InvalidSpeedToSwitchGear
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
-import java.nio.file.Files
-import java.io.IOException
 
 
 internal class CarTest {
@@ -16,17 +14,17 @@ internal class CarTest {
     @Test
     fun changeGearToReverseAtNotZeroSpeed() {
         val car1 = Car(true, Car.MovingDirection.FORWARD, 10, Car.Gear.FIRST)
-        assertThrows(InvalidSpeedToChangeGear::class.java) { car1.setGear(Car.Gear.REVERSE) }
+        assertThrows(InvalidSpeedToSwitchGear::class.java) { car1.setGear(Car.Gear.REVERSE) }
         val car2 = Car(true, Car.MovingDirection.BACKWARD, 10, Car.Gear.REVERSE)
-        assertThrows(InvalidSpeedToChangeGear::class.java) { car2.setGear(Car.Gear.REVERSE) }
+        assertThrows(InvalidSpeedToSwitchGear::class.java) { car2.setGear(Car.Gear.REVERSE) }
     }
 
     @Test
     fun changeGearToFirstFromReverseAtNotZeroSpeed() {
         val car = Car(true, Car.MovingDirection.BACKWARD, 10, Car.Gear.REVERSE)
-        assertThrows(InvalidSpeedToChangeGear::class.java) { car.setGear(Car.Gear.FIRST) }
+        assertThrows(InvalidSpeedToSwitchGear::class.java) { car.setGear(Car.Gear.FIRST) }
         car.setGear(Car.Gear.NEUTRAL)
-        assertThrows(InvalidSpeedToChangeGear::class.java) { car.setGear(Car.Gear.FIRST) }
+        assertThrows(InvalidSpeedToSwitchGear::class.java) { car.setGear(Car.Gear.FIRST) }
     }
 
     @Test
