@@ -1,7 +1,5 @@
 package LW3_1
 
-import java.util.stream.Stream
-
 class InvalidSpeedToSwitchGear(message: String) : Exception(message)
 class InvalidGearToChangeSpeed(message: String) : Exception(message)
 class EngineStateException(message: String) : Exception(message)

@@ -6,7 +6,7 @@ fun main() {
     while (inputLine != "quit") {
         try {
             when (inputLine) {
-                //"Info" -> car.info
+                "Info" -> car.printInfo()
                 "EngineOn" -> car.turnOnEngine()
                 "EngineOff" -> car.turnOffEngine()
                 else -> {
