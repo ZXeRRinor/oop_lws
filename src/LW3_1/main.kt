@@ -32,7 +32,7 @@ fun main() {
                 }
             }
         } catch (e: Exception) {
-            println(e.message)
+            println("ERROR! ${e.message}")
         }
         inputLine = readLine() ?: ""
     }

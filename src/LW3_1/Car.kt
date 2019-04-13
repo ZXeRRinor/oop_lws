@@ -90,6 +90,9 @@ class Car() {
         }
         if (gear == Gear.NEUTRAL) {
             currentGear = gear
+            if(currentSpeed == 0) {
+                currentMovingDirection = MovingDirection.STOP
+            }
         }
         return true
     }
@@ -121,9 +124,9 @@ class Car() {
     }
 
     fun printInfo() {
-        println("Engine is started: $isEngineStarted")
-        println("Current moving direction is: $currentMovingDirection")
-        println("Current gear is: $currentGear")
-        println("Current speed is: $currentSpeed")
+        println("Engine is started:            $isEngineStarted")
+        println("Current moving direction is:  $currentMovingDirection")
+        println("Current gear is:              $currentGear")
+        println("Current speed is:             $currentSpeed")
     }
 }
