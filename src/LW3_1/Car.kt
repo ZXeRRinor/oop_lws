@@ -69,7 +69,7 @@ class Car() {
                 }
             }
             if (gear.number > 0) {
-                if (currentGear == Gear.REVERSE) {
+                if (currentGear == Gear.REVERSE || currentMovingDirection == MovingDirection.BACKWARD) {
                     if (currentSpeed == 0) {
                         currentGear = gear
                         currentMovingDirection = MovingDirection.FORWARD
@@ -126,5 +126,4 @@ class Car() {
         println("Current gear is: $currentGear")
         println("Current speed is: $currentSpeed")
     }
-
 }
