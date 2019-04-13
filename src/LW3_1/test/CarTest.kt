@@ -83,4 +83,12 @@ internal class CarTest {
         assertThrows(EngineStateException::class.java) { car.setGear(Car.Gear.FIRST) }
         assertEquals(true, car.setGear(Car.Gear.NEUTRAL))
     }
+
+    @Test
+    fun tryToSwitchGearToCurrentGear() {
+        val car = Car(true, Car.MovingDirection.STOP, 0, Car.Gear.NEUTRAL)
+        assertEquals(true, car.setGear(Car.Gear.NEUTRAL))
+        car.setGear(Car.Gear.FIRST)
+        assertEquals(true, car.setGear(Car.Gear.FIRST))
+    }
 }
