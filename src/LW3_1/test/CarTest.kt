@@ -5,9 +5,7 @@ import LW3_1.EngineStateException
 import LW3_1.InvalidGearToChangeSpeed
 import LW3_1.InvalidSpeedToSwitchGear
 import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.*
-
 
 internal class CarTest {
 

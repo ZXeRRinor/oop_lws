@@ -53,7 +53,7 @@ class Car() {
                 throw EngineStateException("Engine can be turned off at neutral gear only.")
             }
         } else {
-            throw EngineStateException("Engine is although tuned off.")
+            throw EngineStateException("Engine is already tuned off.")
         }
         return true
     }
@@ -80,6 +80,8 @@ class Car() {
                     if (currentSpeed in gear.speedRange) {
                         currentGear = gear
                         currentMovingDirection = MovingDirection.FORWARD
+                    }else{
+                        throw InvalidSpeedToSwitchGear("Current speed out of range of gear.")
                     }
                 }
             }
