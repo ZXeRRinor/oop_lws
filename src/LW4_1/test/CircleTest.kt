@@ -33,4 +33,9 @@ internal class CircleTest {
     internal fun radiusLessThanZero() {
         assertThrows(InvalidArguments::class.java) {Circle(Point(0, 0), -5.0)}
     }
+
+    @Test
+    internal fun radiusEqualsToZero() {
+        assertThrows(DegenerateShape::class.java) {Circle(Point(0, 0), 0.0)}
+    }
 }

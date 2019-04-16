@@ -25,4 +25,5 @@ internal class LineSegmentTest {
         val line = LineSegment(Point(0, 0), Point(3, 4))
         assertEquals("LineSegment startPoint=Point(x=0.0, y=0.0) endPoint=Point(x=3.0, y=4.0)", line.toString())
     }
+
 }
