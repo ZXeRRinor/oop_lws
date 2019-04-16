@@ -29,6 +29,6 @@ class Triangle(
         }
 
     override fun toString(): String {
-        return ""
+        return "Triangle vertex1=$vertex1 vertex2=$vertex2 vertex3=$vertex3"
     }
 }

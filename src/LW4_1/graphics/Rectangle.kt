@@ -16,11 +16,12 @@ class Rectangle(
             return 2 * width * height
         }
 
-    fun getRightBottom(): Point {
-        return Point(leftTop.x + width, leftTop.y + height)
-    }
+    val rightBottom: Point
+        get() {
+            return Point(leftTop.x + width, leftTop.y + height)
+        }
 
     override fun toString(): String {
-        return ""
+        return "Rectangle leftTop=$leftTop rightBottom=$rightBottom"
     }
 }
