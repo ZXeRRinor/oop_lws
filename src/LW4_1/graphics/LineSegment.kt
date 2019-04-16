@@ -1,5 +1,6 @@
 package LW4_1.graphics
 
+import LW4_1.graphics.Exceptions.DegenerateShape
 import java.lang.Math.pow
 import javax.sound.sampled.Line
 import kotlin.math.abs
@@ -11,6 +12,12 @@ class LineSegment(
     val endPoint: Point,
     override val outlineColor: RGBColor = RGBColor(0, 0, 0)
 ) : Shape {
+    init {
+        if (startPoint == endPoint) {
+            DegenerateShape("It is an one point.")
+        }
+    }
+
     val length: Double
         get() {
             return (sqrt(abs(startPoint.x - endPoint.x).pow(2) + abs(startPoint.y - endPoint.y).pow(2)))
