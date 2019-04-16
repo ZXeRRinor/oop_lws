@@ -6,7 +6,7 @@ import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-data class LineSegment(
+class LineSegment(
     val startPoint: Point,
     val endPoint: Point,
     override val outlineColor: RGBColor = RGBColor(0, 0, 0)

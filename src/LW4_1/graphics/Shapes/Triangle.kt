@@ -1,5 +1,6 @@
 package LW4_1.graphics.Shapes
 
+import LW4_1.graphics.Exceptions.DegenerateShape
 import LW4_1.graphics.LineSegment
 import LW4_1.graphics.Point
 import LW4_1.graphics.RGBColor
@@ -11,6 +12,11 @@ class Triangle(
     override val fillColor: RGBColor = RGBColor(0, 0, 0),
     override val outlineColor: RGBColor = RGBColor(0, 0, 0)
 ) : SolidShape {
+    init{
+        if (vertex1 == vertex2 || vertex2 == vertex3 || vertex3 == vertex1) {
+            throw DegenerateShape("It is an one point.")
+        }
+    }
 
     override val perimeter: Double
         get() {
