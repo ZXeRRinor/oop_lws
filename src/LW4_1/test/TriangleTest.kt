@@ -1,5 +1,6 @@
 package LW4_1.test
 
+import LW4_1.graphics.Exceptions.DegenerateShape
 import LW4_1.graphics.LineSegment
 import LW4_1.graphics.Point
 import LW4_1.graphics.Shapes.Triangle
@@ -41,4 +42,9 @@ internal class TriangleTest {
             triangle.toString()
         )
     }
+
+    @Test
+    internal fun vertexesAreMatchesUp() {
+        assertThrows(DegenerateShape::class.java) {Triangle(Point(0,0), Point(0,0), Point(0,0))}
+        }
 }
