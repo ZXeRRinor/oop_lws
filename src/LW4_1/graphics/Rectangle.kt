@@ -6,12 +6,12 @@ class Rectangle(
 ) :
     SolidShape {
 
-    val area: Double
+    override val area: Double
         get() {
             return width * height
         }
 
-    val perimeter: Double
+    override val perimeter: Double
         get() {
             return 2 * width * height
         }
