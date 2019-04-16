@@ -1,6 +1,6 @@
-package LW4_1.graphics.Shapes
+package LW4_1.graphics.Canvas
 
-interface Canvas {
+interface ICanvas {
     val width: Int
     val height: Int
     val title: String
