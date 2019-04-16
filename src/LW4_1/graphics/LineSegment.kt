@@ -14,8 +14,7 @@ class LineSegment(
 ) : Shape {
     init {
         if (startPoint == endPoint) {
-            DegenerateShape("It is an one point.")
-        }
+            DegenerateShape("It is an one point.") }
     }
 
     val length: Double

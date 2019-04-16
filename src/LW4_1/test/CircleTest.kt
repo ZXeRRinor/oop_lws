@@ -1,5 +1,7 @@
 package LW4_1.test
 
+import LW4_1.graphics.Exceptions.DegenerateShape
+import LW4_1.graphics.Exceptions.InvalidArguments
 import LW4_1.graphics.Point
 import LW4_1.graphics.Shapes.Circle
 import org.junit.jupiter.api.Test
@@ -25,5 +27,10 @@ internal class CircleTest {
     fun toString1() {
         val circle = Circle(Point(0, 0), 5.0)
         assertEquals("Circle radius=5.0 center=Point(x=0.0, y=0.0)", circle.toString())
+    }
+
+    @Test
+    internal fun radiusLessThanZero() {
+        assertThrows(InvalidArguments) {Circle(Point(0, 0), -5.0)}
     }
 }
