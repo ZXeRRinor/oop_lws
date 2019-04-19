@@ -57,7 +57,7 @@ class Canvas(val title: String, val width: Int, val height: Int) {
                         )
                     }
                     if (shape is Triangle) {
-                        drawPolygon(
+                        fillPolygon(
                             intArrayOf(
                                 round(shape.vertex1.x).toInt(),
                                 round(shape.vertex2.x).toInt(),

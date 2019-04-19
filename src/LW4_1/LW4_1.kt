@@ -89,5 +89,7 @@ fun launch() {
 }
 
 fun main() {
-    launch()
+//    launch()
+    val circle = Circle(Point(0, 0), 5.0)
+    println(circle.area)
 }
