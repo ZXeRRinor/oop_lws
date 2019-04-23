@@ -73,7 +73,7 @@ internal class RationalTest {
     fun dec() {
         var rat1 = Rational(11, 14)
         rat1--
-        assertEquals(Rational(-3, 7), rat1)
+        assertEquals(Rational(-3, 14), rat1)
     }
 
     @Test
