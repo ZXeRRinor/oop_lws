@@ -8,10 +8,10 @@ open class Rational(numerator: Int = 0, denominator: Int = 1) {
     }
 
     var numerator = numerator
-        private set
+        protected set
 
     var denominator = denominator
-        private set
+        protected set
 
     private fun gcd(num1: Int, num2: Int): Int {
         var a = num1
@@ -36,7 +36,7 @@ open class Rational(numerator: Int = 0, denominator: Int = 1) {
         denominator = swap
     }
 
-    fun toDouble() = numerator.toDouble() / denominator.toDouble()
+    open fun toDouble() = numerator.toDouble() / denominator.toDouble()
 
     fun reduce() {
         val thisReduced = this.getReduced()

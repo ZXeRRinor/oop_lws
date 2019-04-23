@@ -10,7 +10,8 @@ class CompoundFraction(intPart: Int = 0, numerator: Int = 0, denominator: Int = 
 
     fun normalize() {
         if(numerator > denominator) {
-
+            intPart += numerator / denominator
+            numerator %= denominator
         }
     }
 
