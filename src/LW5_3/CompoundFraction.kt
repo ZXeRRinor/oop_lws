@@ -8,5 +8,10 @@ class CompoundFraction(intPart: Int = 0, numerator: Int = 0, denominator: Int = 
     var intPart = intPart
         private set
 
+    fun normalize() {
+        if(numerator > denominator) {
+
+        }
+    }
 
 }
