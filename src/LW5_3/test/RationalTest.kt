@@ -1,5 +1,6 @@
 package LW5_3.test
 
+import LW5_3.CompoundFraction
 import LW5_3.Rational
 import LW5_3.toRational
 import org.junit.jupiter.api.Test
@@ -103,7 +104,7 @@ internal class RationalTest {
         assert(!(rat1 <= rat2))
         assert(rat1 >= rat2)
         assert(!(rat2 >= rat1))
-        assert(rat1 > rat2 )
+        assert(rat1 > rat2)
         assert(!(rat2 > rat2))
     }
 
@@ -133,5 +134,56 @@ internal class RationalTest {
         var rat1 = Rational(2, 5)
         rat1 /= Rational(6, 2)
         assertEquals(Rational(2, 15), rat1)
+    }
+
+    @Test
+    fun toCompoundFraction() {
+        val rat1 = Rational(17, 14)
+        assert(CompoundFraction(1, 3, 14) == rat1.toCompoundFraction())
+    }
+
+    @Test
+    fun toString1() {
+        val rat1 = Rational(11, 14)
+        assertEquals("11/14", rat1.toString())
+    }
+
+    @Test
+    fun parseFromCorrectString() {
+        val rat1 = Rational(11, 14)
+        val rat2 = Rational()
+        rat2.parseFromString("11/14")
+        assertEquals(rat1, rat2)
+    }
+
+    @Test
+    fun parseFromStringWithSlashesMoreThanOne() {
+        val rat1 = Rational(11, 14)
+        val rat3 = Rational()
+        rat3.parseFromString("11/14/15/16/17")
+        assertNotEquals(rat1, rat3)
+    }
+
+    @Test
+    fun parseFromStringWithoutSlashesAndNumbers() {
+        val rat1 = Rational(11, 14)
+        val rat4 = Rational()
+        rat4.parseFromString("hello")
+        assertNotEquals(rat1, rat4)
+    }
+
+    @Test
+    fun parseFromEmptyString() {
+        val rat1 = Rational(11, 14)
+        val rat4 = Rational()
+        rat4.parseFromString("")
+        assertNotEquals(rat1, rat4)
+    }
+
+    @Test
+    fun parseFromStringWithAlphaCharsDividedBySlash() {
+        val rat1 = Rational(11, 14)
+        val rat4 = Rational()
+        assertThrows(java.lang.NumberFormatException::class.java) { rat4.parseFromString("hello/world") }
     }
 }

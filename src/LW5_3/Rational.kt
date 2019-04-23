@@ -3,17 +3,21 @@ package LW5_3
 import kotlin.math.abs
 
 class Rational(numerator: Int = 0, denominator: Int = 1) : Comparable<Int> {
+
+    var numerator: Int
+        private set
+
+    var denominator: Int
+        private set
+
     init {
         if (denominator == 0) {
             throw ArithmeticException("Denominator of fraction can't be equals to zero")
         }
+        val divisor = gcd(numerator, denominator)
+        this.numerator = numerator / divisor
+        this.denominator = denominator / divisor
     }
-
-    var numerator = numerator / gcd(numerator, denominator)
-        private set
-
-    var denominator = denominator / gcd(numerator, denominator)
-        private set
 
     private fun gcd(num1: Int, num2: Int): Int {
         var a = abs(num1)
@@ -33,6 +37,8 @@ class Rational(numerator: Int = 0, denominator: Int = 1) : Comparable<Int> {
     private fun getInverted() = Rational(denominator, numerator)
 
     fun toDouble() = numerator.toDouble() / denominator.toDouble()
+
+    fun toCompoundFraction() = CompoundFraction(numerator / denominator, numerator % denominator, denominator)
 
     private fun reduce() {
         val thisReduced = this.getReduced()
@@ -91,6 +97,16 @@ class Rational(numerator: Int = 0, denominator: Int = 1) : Comparable<Int> {
     operator fun compareTo(other: Rational) = (this - other).numerator
 
     override operator fun compareTo(other: Int) = (this - other.toRational()).numerator
+
+    override fun toString() = "$numerator/$denominator"
+
+    fun parseFromString(str: String) {
+        val chars = str.split('/')
+        if (chars.size == 2) {
+            numerator = chars[0].toInt()
+            denominator = chars[1].toInt()
+        }
+    }
 
     override fun hashCode(): Int {
         this.reduce()
