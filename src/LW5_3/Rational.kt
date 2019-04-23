@@ -28,6 +28,8 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
 
     private fun getCommonDenominator(other: Rational): Int = lcm(other.denominator, denominator)
 
+    private fun getInverted() = Rational(denominator, numerator)
+
     private fun toDenominator(denominator: Int) {
         if (denominator >= this.denominator && denominator % this.denominator == 0) {
             numerator *= denominator / this.denominator
