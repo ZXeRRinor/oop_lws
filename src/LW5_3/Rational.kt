@@ -99,4 +99,10 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
     }
 
     operator fun compareTo(other: Rational) = (this - other).numerator
+
+    override fun hashCode(): Int {
+        var result = numerator
+        result = 31 * result + denominator
+        return result
+    }
 }
