@@ -36,6 +36,8 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         denominator = swap
     }
 
+    fun toInt() = (numerator.toDouble() / denominator.toDouble()).toInt()
+
     private fun toDenominator(denominator: Int) {
         if (denominator >= this.denominator && denominator % this.denominator == 0) {
             numerator *= denominator / this.denominator
@@ -77,13 +79,13 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         return Rational(summaryNumerator, commonDenominator)
     }
 
-    operator fun plus(other: Int) = this + Rational(other)
+    operator fun plus(other: Int) = this + other.toRational()
 
     operator fun minus(other: Rational): Rational {
         return this + (-other)
     }
 
-    operator fun minus(other: Int) = this - Rational(other)
+    operator fun minus(other: Int) = this - other.toRational()
 
     operator fun times(other: Rational): Rational {
         this.reduce()
@@ -93,15 +95,18 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         return result
     }
 
-    operator fun times(other: Int) = this * Rational(other)
+    operator fun times(other: Int) = this * other.toRational()
 
     operator fun div(other: Rational) = this * other.getInverted()
 
-    operator fun div(other: Int) = this / Rational(other)
+    operator fun div(other: Int) = this / other.toRational()
 
     override fun equals(other: Any?): Boolean {
         if (other is Rational) {
             return (this - other).numerator == 0
+        }
+        if (other is Int && numerator % denominator == 0) {
+            return other == numerator / denominator
         }
         return false
     }
