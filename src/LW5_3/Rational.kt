@@ -38,12 +38,12 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
     }
 
     fun reduce() {
-        val thisReduced = this.safeReduce()
+        val thisReduced = this.getReduced()
         this.numerator = thisReduced.numerator
         this.denominator = thisReduced.denominator
     }
 
-    private fun safeReduce(): Rational {
+    private fun getReduced(): Rational {
         val divisor = gcd(numerator, denominator)
         val resultNumerator = numerator / divisor
         val resultDenominator = denominator / divisor
