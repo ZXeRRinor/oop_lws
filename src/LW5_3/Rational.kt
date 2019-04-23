@@ -24,32 +24,48 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         return a
     }
 
-    private fun lcm(num1: Int, num2: Int): Int {
-        return num1 / gcd(num1, num2) * num2
+    private fun lcm(num1: Int, num2: Int): Int = num1 / gcd(num1, num2) * num2
+
+    private fun getCommonDenominator(other: Rational): Int = lcm(other.denominator, denominator)
+
+    private fun toDenominator(denominator: Int) {
+        if (denominator >= this.denominator && denominator % this.denominator == 0) {
+            numerator *= denominator / this.denominator
+            this.denominator = denominator
+        } else {
+            TODO("throw exception if denominator is not satisfying")
+        }
     }
 
     fun reduce() {
-        val divisor = gcd(this.numerator, this.denominator)
-        this.numerator /= divisor
-        this.denominator /= divisor
+        val thisReduced = this.safeReduce()
+        this.numerator = thisReduced.numerator
+        this.denominator = thisReduced.denominator
+    }
+
+    private fun safeReduce(): Rational {
+        val divisor = gcd(numerator, denominator)
+        val resultNumerator = numerator / divisor
+        val resultDenominator = denominator / divisor
+        return Rational(resultNumerator, resultDenominator)
     }
 
     operator fun unaryMinus(): Rational {
         this.reduce()
-        return Rational(-this.numerator, this.denominator)
+        return Rational(-numerator, denominator)
     }
 
     operator fun unaryPlus(): Rational {
         this.reduce()
-        return Rational(this.numerator, this.denominator)
+        return Rational(numerator, denominator)
     }
 
     operator fun plus(other: Rational): Rational {
         other.reduce()
         this.reduce()
-        val commonDenominator = lcm(other.denominator, this.denominator)
+        val commonDenominator = getCommonDenominator(other)
         val summaryNumerator =
-            other.numerator * (denominator / other.denominator) + this.numerator * (denominator / this.denominator)
+            other.numerator * (commonDenominator / other.denominator) + numerator * (commonDenominator / denominator)
         return Rational(summaryNumerator, commonDenominator)
     }
 
@@ -57,7 +73,20 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         return this + (-other)
     }
 
-//    operator fun times(other: Rational): Rational {
-//
-//    }
+    operator fun times(other: Rational): Rational {
+        this.reduce()
+        other.reduce()
+        val result = Rational(numerator * other.numerator, denominator * other.denominator)
+        result.reduce()
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Rational) {
+            return (this - other).numerator == 0
+        }
+        return false
+    }
+
+    operator fun compareTo(other: Rational) = (this - other).numerator
 }

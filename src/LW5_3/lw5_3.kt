@@ -4,4 +4,5 @@ fun main() {
     val a = Rational()
     a.denominator
     a.numerator
+    a.reduce()
 }
