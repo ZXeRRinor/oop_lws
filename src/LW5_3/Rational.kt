@@ -38,17 +38,6 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
 
     fun toDouble() = numerator.toDouble() / denominator.toDouble()
 
-    fun toInt() = toDouble().toInt()
-
-    private fun toDenominator(denominator: Int) {
-        if (denominator >= this.denominator && denominator % this.denominator == 0) {
-            numerator *= denominator / this.denominator
-            this.denominator = denominator
-        } else {
-            TODO("throw exception if denominator is not satisfying")
-        }
-    }
-
     fun reduce() {
         val thisReduced = this.getReduced()
         this.numerator = thisReduced.numerator
@@ -78,14 +67,12 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         val commonDenominator = getCommonDenominator(other)
         val summaryNumerator =
             other.numerator * (commonDenominator / other.denominator) + numerator * (commonDenominator / denominator)
-        return Rational(summaryNumerator, commonDenominator)
+        return Rational(summaryNumerator, commonDenominator).getReduced()
     }
 
     operator fun plus(other: Int) = this + other.toRational()
 
     operator fun inc() = Rational(numerator + denominator, denominator)
-
-    operator fun dec() = Rational(numerator - denominator, denominator)
 
     operator fun minus(other: Rational): Rational {
         return this + (-other)
@@ -93,12 +80,12 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
 
     operator fun minus(other: Int) = this - other.toRational()
 
+    operator fun dec() = Rational(numerator - denominator, denominator)
+
     operator fun times(other: Rational): Rational {
         this.reduce()
         other.reduce()
-        val result = Rational(numerator * other.numerator, denominator * other.denominator)
-        result.reduce()
-        return result
+        return Rational(numerator * other.numerator, denominator * other.denominator).getReduced()
     }
 
     operator fun times(other: Int) = this * other.toRational()
@@ -118,4 +105,11 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
     }
 
     operator fun compareTo(other: Rational) = (this - other).numerator
+
+    override fun hashCode(): Int {
+        this.reduce()
+        var result = numerator
+        result = 31 * result + denominator
+        return result
+    }
 }
