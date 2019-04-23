@@ -77,9 +77,13 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         return Rational(summaryNumerator, commonDenominator)
     }
 
+    operator fun plus(other: Int) = this + Rational(other)
+
     operator fun minus(other: Rational): Rational {
         return this + (-other)
     }
+
+    operator fun minus(other: Int) = this - Rational(other)
 
     operator fun times(other: Rational): Rational {
         this.reduce()
