@@ -36,7 +36,9 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         denominator = swap
     }
 
-    fun toInt() = (numerator.toDouble() / denominator.toDouble()).toInt()
+    fun toDouble() = numerator.toDouble() / denominator.toDouble()
+
+    fun toInt() = toDouble().toInt()
 
     private fun toDenominator(denominator: Int) {
         if (denominator >= this.denominator && denominator % this.denominator == 0) {
@@ -81,6 +83,10 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
 
     operator fun plus(other: Int) = this + other.toRational()
 
+    operator fun inc() = Rational(numerator + denominator, denominator)
+
+    operator fun dec() = Rational(numerator - denominator, denominator)
+
     operator fun minus(other: Rational): Rational {
         return this + (-other)
     }
@@ -112,10 +118,4 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
     }
 
     operator fun compareTo(other: Rational) = (this - other).numerator
-
-    override fun hashCode(): Int {
-        var result = numerator
-        result = 31 * result + denominator
-        return result
-    }
 }
