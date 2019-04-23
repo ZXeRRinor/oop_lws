@@ -1,6 +1,6 @@
 package LW5_3
 
-class Rational(numerator: Int = 0, denominator: Int = 1) {
+open class Rational(numerator: Int = 0, denominator: Int = 1) {
     init {
         if (denominator == 0) {
             throw ArithmeticException("Denominator of fraction can't be equals to zero")
