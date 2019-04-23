@@ -14,13 +14,6 @@ internal class RationalTest {
     }
 
     @Test
-    fun reduce() {
-        val rat1 = Rational(12, 14)
-        rat1.reduce()
-        assertEquals(Rational(6, 7), rat1)
-    }
-
-    @Test
     fun unaryMinus() {
         val rat1 = Rational(12, 14)
         assertEquals(Rational(-12, 14), -rat1)
@@ -49,13 +42,6 @@ internal class RationalTest {
     }
 
     @Test
-    fun inc() {
-        var rat1 = Rational(11, 14)
-        rat1++
-        assertEquals(Rational(25, 14), rat1)
-    }
-
-    @Test
     fun minus() {
         val rat1 = Rational(8, 5)
         assertEquals(Rational(4, 5), rat1 - Rational(4, 5))
@@ -67,13 +53,6 @@ internal class RationalTest {
         val rat1 = Rational(8, 5)
         assertEquals(Rational(-2, 5), rat1 - 2)
         assertEquals(Rational(3, 5), rat1 - 1)
-    }
-
-    @Test
-    fun dec() {
-        var rat1 = Rational(11, 14)
-        rat1--
-        assertEquals(Rational(-3, 14), rat1)
     }
 
     @Test
@@ -116,6 +95,16 @@ internal class RationalTest {
 
     @Test
     fun compareTo() {
+        val rat1 = Rational(11, 14)
+        val rat2 = Rational(9, 14)
+        assert(rat2 < rat1)
+        assert(!(rat1 < rat1))
+        assert(rat2 <= rat1)
+        assert(!(rat1 <= rat2))
+        assert(rat1 >= rat2)
+        assert(!(rat2 >= rat1))
+        assert(rat1 > rat2 )
+        assert(!(rat2 > rat2))
     }
 
     @Test

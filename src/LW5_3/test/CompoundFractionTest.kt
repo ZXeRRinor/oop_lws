@@ -17,7 +17,7 @@ internal class CompoundFractionTest {
     @Test
     internal fun normalize() {
         val compFraction = CompoundFraction(Rational(11, 5))
-        compFraction.normalize()
+        //compFraction.normalize()
         assertEquals(CompoundFraction(2, 1, 5), compFraction)
     }
 }

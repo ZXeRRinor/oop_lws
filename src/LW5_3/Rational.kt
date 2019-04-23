@@ -1,21 +1,23 @@
 package LW5_3
 
-open class Rational(numerator: Int = 0, denominator: Int = 1) {
+import kotlin.math.abs
+
+class Rational(numerator: Int = 0, denominator: Int = 1) : Comparable<Int> {
     init {
         if (denominator == 0) {
             throw ArithmeticException("Denominator of fraction can't be equals to zero")
         }
     }
 
-    var numerator = numerator
-        protected set
+    var numerator = numerator / gcd(numerator, denominator)
+        private set
 
-    var denominator = denominator
-        protected set
+    var denominator = denominator / gcd(numerator, denominator)
+        private set
 
     private fun gcd(num1: Int, num2: Int): Int {
-        var a = num1
-        var b = num2
+        var a = abs(num1)
+        var b = abs(num2)
         while (b != 0) {
             val temp = b
             b = a % b
@@ -30,15 +32,9 @@ open class Rational(numerator: Int = 0, denominator: Int = 1) {
 
     private fun getInverted() = Rational(denominator, numerator)
 
-    private fun inverse() {
-        val swap = numerator
-        numerator = denominator
-        denominator = swap
-    }
+    fun toDouble() = numerator.toDouble() / denominator.toDouble()
 
-    open fun toDouble() = numerator.toDouble() / denominator.toDouble()
-
-    fun reduce() {
+    private fun reduce() {
         val thisReduced = this.getReduced()
         this.numerator = thisReduced.numerator
         this.denominator = thisReduced.denominator
@@ -51,28 +47,19 @@ open class Rational(numerator: Int = 0, denominator: Int = 1) {
         return Rational(resultNumerator, resultDenominator)
     }
 
-    operator fun unaryMinus(): Rational {
-        this.reduce()
-        return Rational(-numerator, denominator)
-    }
+    operator fun unaryMinus() = Rational(-numerator, denominator)
 
-    operator fun unaryPlus(): Rational {
-        this.reduce()
-        return Rational(numerator, denominator)
-    }
+    operator fun unaryPlus() = Rational(numerator, denominator)
 
     operator fun plus(other: Rational): Rational {
         other.reduce()
-        this.reduce()
         val commonDenominator = getCommonDenominator(other)
         val summaryNumerator =
             other.numerator * (commonDenominator / other.denominator) + numerator * (commonDenominator / denominator)
-        return Rational(summaryNumerator, commonDenominator).getReduced()
+        return Rational(summaryNumerator, commonDenominator)
     }
 
     operator fun plus(other: Int) = this + other.toRational()
-
-    operator fun inc() = Rational(numerator + denominator, denominator)
 
     operator fun minus(other: Rational): Rational {
         return this + (-other)
@@ -80,12 +67,9 @@ open class Rational(numerator: Int = 0, denominator: Int = 1) {
 
     operator fun minus(other: Int) = this - other.toRational()
 
-    operator fun dec() = Rational(numerator - denominator, denominator)
-
     operator fun times(other: Rational): Rational {
-        this.reduce()
         other.reduce()
-        return Rational(numerator * other.numerator, denominator * other.denominator).getReduced()
+        return Rational(numerator * other.numerator, denominator * other.denominator)
     }
 
     operator fun times(other: Int) = this * other.toRational()
@@ -105,6 +89,8 @@ open class Rational(numerator: Int = 0, denominator: Int = 1) {
     }
 
     operator fun compareTo(other: Rational) = (this - other).numerator
+
+    override operator fun compareTo(other: Int) = (this - other.toRational()).numerator
 
     override fun hashCode(): Int {
         this.reduce()

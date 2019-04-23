@@ -1,6 +1,6 @@
 package LW5_3
 
-class CompoundFraction(intPart: Int = 0, numerator: Int = 0, denominator: Int = 1) : Rational(numerator, denominator) {
+class CompoundFraction(intPart: Int = 0, numerator: Int = 0, denominator: Int = 1) {
 
     constructor(rationalPart: Rational) : this(0, rationalPart.numerator, rationalPart.denominator)
     constructor(intPart: Int, rationalPart: Rational) : this(intPart, rationalPart.numerator, rationalPart.denominator)
@@ -8,11 +8,11 @@ class CompoundFraction(intPart: Int = 0, numerator: Int = 0, denominator: Int = 
     var intPart = intPart
         private set
 
-    fun normalize() {
-        if(numerator > denominator) {
-            intPart += numerator / denominator
-            numerator %= denominator
-        }
-    }
+//    fun normalize() {
+//        if(numerator > denominator) {
+//            intPart += numerator / denominator
+//            numerator %= denominator
+//        }
+//    }
 
 }
