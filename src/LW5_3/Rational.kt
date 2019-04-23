@@ -89,6 +89,8 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
         return result
     }
 
+    operator fun div(other: Rational) = this * other.getInverted()
+
     override fun equals(other: Any?): Boolean {
         if (other is Rational) {
             return (this - other).numerator == 0
