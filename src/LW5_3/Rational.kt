@@ -30,6 +30,12 @@ class Rational(numerator: Int = 0, denominator: Int = 1) {
 
     private fun getInverted() = Rational(denominator, numerator)
 
+    private fun inverse() {
+        val swap = numerator
+        numerator = denominator
+        denominator = swap
+    }
+
     private fun toDenominator(denominator: Int) {
         if (denominator >= this.denominator && denominator % this.denominator == 0) {
             numerator *= denominator / this.denominator
